@@ -13,9 +13,32 @@ angular.module('zhangxiaoyunApp')
   $scope.cartItems = Localstorage.getLocalstorage('cartItems');
   $scope.price= caculateTotal();
 
+  $scope.downCart_Num = function (cartItem){
+    var cartItems = Localstorage.getLocalstorage("cartItems");
+  if (!cartItems){
+    cartItems = [];
+  }
+        for(var i=0; i<cartItems.length; i++){
+            if(cartItems[i].item.name === cartItem.item.name){
+              if (cartItems[i].quantity > 0){
+                cartItems[i].quantity--;
+              }
+
+            }
+        }
+
+    Localstorage.setLocalstorage("cartItems", cartItems);
+    $scope.cartItems = Localstorage.getLocalstorage('cartItems');
+    $scope.$parent.quantity = generateQuantity();
+    $scope.price= caculateTotal();
+
+  };
+
   $scope.upCart_Num = function (cartItem){
     var cartItems = Localstorage.getLocalstorage("cartItems");
-
+if (!cartItems){
+  cartItems = [];
+}
         for(var i=0; i<cartItems.length; i++){
             if(cartItems[i].item.name === cartItem.item.name){
                 cartItems[i].quantity++;
