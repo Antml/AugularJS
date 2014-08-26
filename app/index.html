@@ -12,10 +12,10 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
+    <!-- <link rel="stylesheet" href="styles/main.css"> -->
     <!-- endbuild -->
   </head>
-  <body ng-app="zhangxiaoyunApp">
+  <body ng-app="zhangxiaoyunApp" ng-controller="IndexCtrl">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -32,7 +32,9 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="navbar-brand"><a href="#/LIST">List</a></li>
+                    <div class="navbar-brand">
+                      <a href="#/LIST">List</a>
+                    </div>
 
                 </ul>
 
@@ -40,7 +42,7 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     <li class="dropdown">
-                        <a href="#/cart" class="dropdown-toggle" data-toggle="dropdown">Cart(<span class="NUM">{{0}}</span>)</a>
+                        <a href="#/cart" class="dropdown-toggle" data-toggle="dropdown">Cart(<span class="NUM">{{quantity}}</span>)</a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -92,6 +94,10 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/LIST.js"></script>
+        <script src="scripts/controllers/cart.js"></script>
+        <script src="scripts/controllers/index.js"></script>
+        <script src="scripts/controllers/pay.js"></script>
+
 
 
 
