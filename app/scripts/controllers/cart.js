@@ -8,26 +8,35 @@
  * Controller of the zhangxiaoyunApp
  */
 angular.module('zhangxiaoyunApp')
-  .controller('cartCtrl', function ($scope, $location) {
+    .controller('cartCtrl', function ($scope, $location) {
 
-  $scope.cartItems = Localstorage.getLocalstorage('cartItems');
-  $scope.price= caculateTotal();
+    $scope.cartItems = Localstorage.getLocalstorage('cartItems');
+    $scope.price= caculateTotal();
 
-  $scope.downCart_Num = function (cartItem){
-    var cartItems = Localstorage.getLocalstorage("cartItems");
-  if (!cartItems){
-    cartItems = [];
-  }
+    $scope.downCart_Num = function (cartItem){
+      var cartItems = Localstorage.getLocalstorage("cartItems");
+      if (!cartItems){
+        cartItems = [];
+      }
         for(var i=0; i<cartItems.length; i++){
             if(cartItems[i].item.name === cartItem.item.name){
               if (cartItems[i].quantity > 0){
                 cartItems[i].quantity--;
+              }
+              if(cartItems[i].quantity === 0) {
+                var noUse = _.remove(cartItems, function(cartItem){
+
+                    return cartItem.quantity ===0;
+
+                  })
+                // _.without(cartItems,cartItems[i]);
               }
 
             }
         }
 
     Localstorage.setLocalstorage("cartItems", cartItems);
+
     $scope.cartItems = Localstorage.getLocalstorage('cartItems');
     $scope.$parent.quantity = generateQuantity();
     $scope.price= caculateTotal();
@@ -36,9 +45,9 @@ angular.module('zhangxiaoyunApp')
 
   $scope.upCart_Num = function (cartItem){
     var cartItems = Localstorage.getLocalstorage("cartItems");
-if (!cartItems){
-  cartItems = [];
-}
+      if (!cartItems){
+        cartItems = [];
+      }
         for(var i=0; i<cartItems.length; i++){
             if(cartItems[i].item.name === cartItem.item.name){
                 cartItems[i].quantity++;
@@ -51,22 +60,22 @@ if (!cartItems){
     $scope.price= caculateTotal();
 
   };
-  $scope.changetopay = function(){
+    $scope.changetopay = function(){
     $location.path('pay');
 
-  };
+    };
 
-});
+  });
 
-function caculateTotal(){
-  var total = 0;
-  var cartItems =Localstorage.getLocalstorage('cartItems');
-  if (!cartItems){
+  function caculateTotal(){
+    var total = 0;
+    var cartItems =Localstorage.getLocalstorage('cartItems');
+    if (!cartItems){
     cartItems = [];
-  }
+    }
 
-  for (var i=0;i<cartItems.length;i++){
-    total += cartItems[i].quantity*cartItems[i].item.price;
+    for (var i=0;i<cartItems.length;i++){
+      total += cartItems[i].quantity*cartItems[i].item.price;
+    }
+      return total;
   }
-  return total;
-}
